@@ -48,13 +48,18 @@ function init() {
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-    // Create sphere mesh from geometry and wireframe material
+    // Create sphere mesh from geometry and Lambert (light-reactive) material
     geometry = new THREE.SphereGeometry( .5 , 20, 20);
-    material = new THREE.MeshBasicMaterial( { color: 0xff0000 , wireframe: true} );
+    material = new THREE.MeshLambertMaterial( { color: 0xff0000 , } );
     centerPlanet = new THREE.Mesh( geometry, material );
 
+    // Create point representing sun
+    var Sun = new THREE.PointLight( 0xffffff , 1 , 0 );
+    Sun.position.set( 0 , 10 , 0 );
+    scene.add( Sun );
 
 
+    // Adds the center planet to the scene and center camera on it
     scene.add( centerPlanet );
     camera.lookAt(centerPlanet.position);
 
@@ -62,66 +67,3 @@ function init() {
     renderer.render(scene, camera);
 
 }
-
-/*
-function animate() {
-
-    // Need function to get physics for planets calculated for translations and rotations etc.
-                // add the output of the renderer to the html element
-    document.getElementById("gl-canvas").appendChild(renderer.domElement);
-
-        // render the scene
-    renderer.render(scene, camera);
-    }
-
-// Click to add planet ... 
-// Later: Figure out click and hold functionality
-//document.addEventListener('click', addPlanet);
-
-// @function: adds a planet where the user clicks
-// @parameters:
-//      - event: Key down event, contains pressed key
-
-/*
-function addPlanet(event){
-
-    // Start Game
-//    if (document.getElementById("start").innerHTML != ""){
-//        document.getElementById("start").innerHTML = "";
-//        return;
-//   }
-
-    xSpeed = Math.PI/2
-    ySpeed = Math.PI/2
-
-    switch(event.key) {
-        case 'ArrowUp':
-            lerpAxis = XAxis;
-            lerpTime = lerpTotalTime;
-            lerpDistance = -xSpeed;
-            break;
-        case 'ArrowDown':
-            lerpAxis = XAxis;
-            lerpTime = lerpTotalTime;
-            lerpDistance = xSpeed;
-            break;
-        case 'ArrowLeft':
-            lerpAxis = YAxis;
-            lerpTime = lerpTotalTime;
-            lerpDistance = -ySpeed;
-            break;
-        case 'ArrowRight':
-            lerpAxis = YAxis;
-            lerpTime = lerpTotalTime;
-            lerpDistance = ySpeed;
-            break;
-        case ' ':   //Spacebar -> Reset Cube OrientationWorld
-            player.lookAt(0,0,0);
-            break;
-    }
-    event.preventDefault();
-}
-*/
-
-
-
