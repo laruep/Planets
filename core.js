@@ -4,20 +4,29 @@
 // - Althought come to think of it this would be cool AF if it wa 3D and looked ellipitcal and shit
 // ---------------------------------------------------------------------------------------------------------
 //     TO DO 
-// - Create center planet
-// - Create placeholder buttons for adding planets/clicking to add a planet
-// - Implement physics for second planet
-// - Create orbit "trails" or predicted path lines
+// [X] Create center sun
+// [] Implement clicking to create a new planet
+// [] Implement physics for second planet
+// [] Create orbit "trails" or predicted path lines
 // ---------------------------------------------------------------------------------------------------------
 //     FURTHER TO DO
-// - Add click-and-hold feature for adding planets to make a variable mass that affects phsyics
-//
+// [] Add click-and-hold feature for adding planets to make a variable mass that affects phsyics
+// [] Have planets rotate about their own axes while rotating around the sun
+// [] Randomize chance of planet having a ring
+// [] Add pause button
+// [] Allow planets to have moons
+// [] Allow zoom with mouse wheel?
 
 
 //Math contants and such
 var pi = Math.PI;
+var d90 = pi/2;
+var d45 = pi/4;
+var d30 = pi/6;
+var d15 = pi/12;
+const spehereComplexity = 20;
 
-// 
+
 var camera, scene, renderer;
 var geometry, material, player;
 
@@ -35,6 +44,7 @@ var BLUE = new THREE.Color( 0x0000ff );
 var cubeColors = [ RED, GREEN, BLUE ];
 
 init(); 
+renderScene();
 
 function init() {
 // Createss a camera object
@@ -50,7 +60,7 @@ function init() {
     renderer.setClearColor(new THREE.Color(0x111111));
 
 // Create sphere mesh from geometry and Lambert (light-reactive) material
-    geometry = new THREE.SphereGeometry( .5 , 20, 20);
+    geometry = new THREE.SphereGeometry( .5 , spehereComplexity, spehereComplexity);
     material = new THREE.MeshBasicMaterial( { color: 0xdddd00 } );
     centerPlanet = new THREE.Mesh( geometry, material );
 
@@ -59,6 +69,13 @@ function init() {
     Sun.position.set( 0 , 0 , 0 );
     scene.add( Sun );
 
+// Create planet that will orbit sun
+    var planetG = new THREE.SphereGeometry(.3, spehereComplexity, spehereComplexity);
+    var planetM = new THREE.MeshLambertMaterial( { color: 0xaa22cc } );
+    var planet = new THREE.Mesh(planetG,planetM);
+
+    planet.position.set( 3 , 0 , 0 );
+    scene.add( planet );
 
 // Adds the center planet to the scene and center camera on it
     scene.add( centerPlanet );
@@ -66,5 +83,49 @@ function init() {
 
 // Tells the script where to output the WebGL output and then renders the output
     document.getElementById("output").appendChild(renderer.domElement);
+    //renderer.render( scene , camera);
+    step = 0;
+    renderScene();
+
+    function renderScene() {
+
+        var dist = 3 * Math.sqrt(2);
+
+        step += .04;
+        planet.position.x = dist * Math.cos(step);
+        planet.position.y = dist * Math.sin(step);
+
+
+
+        requestAnimationFrame(renderScene);
+        renderer.render(scene, camera);
+    }
+}
+
+function addPlanet(){
+    var planetColors = [randColor() , randColor() , randColor()];
+    var newPlanetG= new THREE.SphereGeometry( .35 , spehereComplexity, spehereComplexity);
+    var newPlanetM = new THREE.MeshLambertMaterial( {color: rgb(planetColors[0] , planetColors[1] , planetColors[2]) } );
+}
+
+function randColor(){
+    var min = 0;
+    var max = 255;
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/*
+// renderScene will include all animation details
+function renderScene(){
+
+    var dist = planet.radius * Math.sqrt(2);
+    planet.position.x += dist * Math.cos(d15);
+    planet.position.y += dist * Math.sin(d15);
+
+
+
+    requestAnimationFrame(renderScene);
     renderer.render(scene, camera);
 }
+*/
