@@ -65,7 +65,7 @@ function init() {
     var planetM = new THREE.MeshLambertMaterial( { color: 0xaa22cc } );
     var planet = new THREE.Mesh(planetG,planetM);
 
-    planet.position.set( 3 , 0 , 0 );
+    planet.position.set( 0 , 6.5 , 0 );
     scene.add( planet );
 
 // Adds the center planet to the scene and center camera on it
@@ -91,6 +91,29 @@ function init() {
         requestAnimationFrame(renderScene);
         renderer.render(scene, camera);
     }
+
+
+    document.addEventListener('click', prepPlanet);
+
+    function prepPlanet(event){
+        var width, height;
+        width = window.innerWidth;
+        height = window.innerHeight;
+        var reverseRatio = height/width;
+
+        //Print non-converted coords
+        var coords = [event.clientX,event.clientY];
+        //console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
+
+        coords[0] = (coords[0] - width/2)/(camera.fov * reverseRatio);
+        coords[1] = (coords[1] - height/2)/(camera.fov);
+
+        //Print converted coords
+        //console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
+        spawnPlanet(coords);
+    }
+
 }
+
 
 

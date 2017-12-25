@@ -19,18 +19,14 @@
 
 
 class Planet{
-	constructor(radius, color, mass){
+	constructor(radius, color, mass, coords){
 		this.geometry = new THREE.SphereGeometry(radius, sphereComplexity, sphereComplexity);
-		this.color = new THREE.color("rgb")
-		this.material = new THREE.MeshLambertMaterial( {color: this.c} );
+		this.color = new THREE.Color(color[0], color[1], color[2]);
+		this.material = new THREE.MeshLambertMaterial( {color: this.color} );
 		this.mesh = new THREE.Mesh(this.geometry,this.material);
 		this.mass = mass;
 
-		//this.mesh.position.x = click X position
-		//this.mesh.position.y = click Y position
-	}
-
-	get mass(){
-		return this.mass;
+		this.mesh.position.x = coords[0];
+		this.mesh.position.y = coords[1];
 	}
 }

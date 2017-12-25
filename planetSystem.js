@@ -3,20 +3,16 @@ var planets = [];
 
 var lastTime, deltaTime;
 
-
-
-
-
-
 function orbits(){
 
 
 }
 
-function spawnPlanet(){
+
+function spawnPlanet(coords){
 // Create new Planet object, add to scene, and add to planets array 
-	var newPlanet = new Planet(sphereComplexity, randColors(), 1);
-	scene.add(newPlanet);
+	var newPlanet = new Planet(sphereComplexity , randColors() , 1 , coords);
+	scene.add(newPlanet.mesh);
 	planets.push(newPlanet);
 
 
