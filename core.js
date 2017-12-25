@@ -50,6 +50,9 @@ function init() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setClearColor(new THREE.Color(0x000000));
 
+    var axesHelper = new THREE.AxesHelper(6);
+    scene.add( axesHelper );
+
 // Create sphere mesh from geometry and Lambert (light-reactive) material
     geometry = new THREE.SphereGeometry( .5 , sphereComplexity, sphereComplexity);
     material = new THREE.MeshBasicMaterial( { color: 0xdddd00 } );
@@ -103,13 +106,13 @@ function init() {
 
         //Print non-converted coords
         var coords = [event.clientX,event.clientY];
-        //console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
+        console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
 
-        coords[0] = (coords[0] - width/2)/(camera.fov * reverseRatio);
-        coords[1] = (coords[1] - height/2)/(camera.fov);
+        coords[0] = (coords[0] - 800)/(54.5);
+        coords[1] = (coords[1] - 384)/(-54.5);
 
         //Print converted coords
-        //console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
+        console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
         spawnPlanet(coords);
     }
 
