@@ -28,5 +28,7 @@ class Planet{
 
 		this.mesh.position.x = coords[0];
 		this.mesh.position.y = coords[1];
+
+		this.angle = Math.atan(coords[1] / coords[0]);
 	}
 }

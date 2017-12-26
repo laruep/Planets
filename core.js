@@ -34,7 +34,7 @@ var BLUE = new THREE.Color( 0x0000ff );
 
 var cubeColors = [ RED, GREEN, BLUE ];
 
-init(); 
+init();
 renderScene();
 
 function init() {
@@ -50,8 +50,9 @@ function init() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setClearColor(new THREE.Color(0x000000));
 
-    var axesHelper = new THREE.AxesHelper(6);
-    scene.add( axesHelper );
+// Axes Helpers
+    //var axesHelper = new THREE.AxesHelper(6);
+    //scene.add( axesHelper );
 
 // Create sphere mesh from geometry and Lambert (light-reactive) material
     geometry = new THREE.SphereGeometry( .5 , sphereComplexity, sphereComplexity);
@@ -64,12 +65,14 @@ function init() {
     scene.add( Sun );
 
 // Create planet that will orbit sun
+    /*
     var planetG = new THREE.SphereGeometry(.3, sphereComplexity, sphereComplexity);
     var planetM = new THREE.MeshLambertMaterial( { color: 0xaa22cc } );
     var planet = new THREE.Mesh(planetG,planetM);
 
     planet.position.set( 0 , 6.5 , 0 );
     scene.add( planet );
+    */
 
 // Adds the center planet to the scene and center camera on it
     scene.add( centerPlanet );
@@ -77,25 +80,26 @@ function init() {
 
 // Tells the script where to output the WebGL output and then renders the output
     document.getElementById("output").appendChild(renderer.domElement);
-    //renderer.render( scene , camera);
-    step = 0;
     renderScene();
 
     function renderScene() {
+        //console.log(isPlanets);
+        //console.log(planets.length)
+        if (isPlanets){
+            for (var i = 0; i < planets.length; i++){
+                var dist = Math.sqrt(Math.pow(planets[i].mesh.position.x,2) + Math.pow(planets[i].mesh.position.y,2));
+                planets[i].mesh.position.x = dist * Math.cos(planets[i].angle);
+                planets[i].mesh.position.y = dist * Math.sin(planets[i].angle);
 
-        var dist = Math.sqrt(Math.pow(planet.position.x,2) + Math.pow(planet.position.y,2));
-
-        step += .04;
-        planet.position.x = dist * Math.cos(step);
-        planet.position.y = dist * Math.sin(step);
-
-
+                planets[i].angle += .04;
+            }
+        //step += .04;
+        }
 
         requestAnimationFrame(renderScene);
         renderer.render(scene, camera);
     }
-
-
+    
     document.addEventListener('click', prepPlanet);
 
     function prepPlanet(event){
@@ -106,13 +110,13 @@ function init() {
 
         //Print non-converted coords
         var coords = [event.clientX,event.clientY];
-        console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
+        //console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
 
         coords[0] = (coords[0] - 800)/(54.5);
         coords[1] = (coords[1] - 384)/(-54.5);
 
         //Print converted coords
-        console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
+        //console.log("X is: " + coords[0] + " , Y is: " + coords[1]);
         spawnPlanet(coords);
     }
 
