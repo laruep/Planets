@@ -21,7 +21,7 @@
 class Planet{
 	constructor(radius, color, mass, coords){
 		this.geometry = new THREE.SphereGeometry(radius, sphereComplexity, sphereComplexity);
-		this.color = new THREE.Color(color[0], color[1], color[2]);
+		this.color = new THREE.Color(color);
 		this.material = new THREE.MeshLambertMaterial( {color: this.color} );
 		this.mesh = new THREE.Mesh(this.geometry,this.material);
 		this.mass = mass;

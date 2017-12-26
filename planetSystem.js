@@ -3,9 +3,11 @@ var isPlanets = 0;
 
 function spawnPlanet(coords){
 // Create new Planet object, add to scene, and add to planets array 
-	//var colors = randColors();
-	colors = [255,0,0];
-	var newPlanet = new Planet(.3, colors  , 1 , coords);
+	
+	var colors = randColors();
+
+	var newPlanet = new Planet(.3, colors , 1 , coords);
+	console.log(colors);
 	scene.add(newPlanet.mesh);
 	planets.push(newPlanet);
 	isPlanets = 1;

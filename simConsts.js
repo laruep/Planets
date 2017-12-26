@@ -12,8 +12,7 @@ function randColors(){
 
 // Get random colors in RGB values 0 to 255
     var colors = [Math.floor(Math.random() * (max - min + 1)) + min , Math.floor(Math.random() * (max - min + 1)) + min , Math.floor(Math.random() * (max - min + 1)) + min];
-// Convert to 0 to 1 float RGB
-    colors = [1/colors[0],1/colors[1],1/colors[2]];
 
-    return colors;
+    var colorstring = "rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")";
+    return colorstring;
 }

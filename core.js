@@ -5,8 +5,8 @@
 // ---------------------------------------------------------------------------------------------------------
 //     TO DO 
 // [X] Create center sun
-// [] Implement clicking to create a new planet
-// [] Implement physics for second planet
+// [X] Implement clicking to create a new planet
+// [X] Implement physics for second planet
 // [] Create orbit "trails" or predicted path lines
 // ---------------------------------------------------------------------------------------------------------
 //     FURTHER TO DO
