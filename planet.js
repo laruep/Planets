@@ -26,9 +26,9 @@ class Planet{
 		this.mesh = new THREE.Mesh(this.geometry,this.material);
 		this.mass = mass;
 
-		this.mesh.position.x = coords[0];
-		this.mesh.position.y = coords[1];
+		this.mesh.position.set(coords[0] , coords[1], 0);
 
-		this.angle = Math.atan(coords[1] / coords[0]);
+		this.vecPos = new THREE.Vector3(coords[0] , coords[1], 0);
+		this.angle = this.vecPos.angleTo( XAxis );
 	}
 }

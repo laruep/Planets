@@ -6,6 +6,12 @@ var d15 = pi/12;
 const sphereComplexity = 20;
 var step = 0;
 
+var XAxis, YAxis, ZAxis;
+XAxis = new THREE.Vector3(1,0,0).normalize();
+YAxis = new THREE.Vector3(-0,1,0).normalize();
+ZAxis = new THREE.Vector3(0,0,1).normalize();
+
+
 function randColors(){   
     var min = 0;
     var max = 255;
